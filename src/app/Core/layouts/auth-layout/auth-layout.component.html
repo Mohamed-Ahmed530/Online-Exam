@@ -1,0 +1,28 @@
+<section class="flex min-h-screen">
+
+    <div class="hidden lg:block lg:w-1/2">
+        <app-auth-intro></app-auth-intro>
+        <!-- Auth Intro -->
+    </div>
+
+    <div class="w-full lg:w-1/2">
+
+        <nav role="navigation">
+            <ul class="flex justify-end items-center gap-12 mt-20 mr-20">
+                <li>
+                    <a class="text-[20px] text-[#000000] font-normal cursor-pointer" >English</a>
+                </li>
+                <li>
+                    <a class="text-[20px] leading-[100%] font-bold font text-[#4461F2]" routerLink="/sign-in" routerLinkActive="font-medium py-[9px] px-[21px] border border-[#E0E0E9] rounded-2xl" >Sign In</a>
+                </li>
+                <li> 
+                    <a class="text-[20px] leading-[100%] font-bold font text-[#4461F2]" routerLink="/sign-up" routerLinkActive="font-medium py-[9px] px-[21px] border border-[#E0E0E9] rounded-2xl" >Sign Up</a>
+                </li>
+            </ul>
+        </nav>
+
+        <router-outlet></router-outlet>
+        <!-- Login, Register, Forgot Password -->
+    </div>
+
+</section>

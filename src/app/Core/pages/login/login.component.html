@@ -1,0 +1,65 @@
+<section class="flex justify-center min-h-screen">
+    <div class="form max-w-[410px] w-full h-auto mt-10">
+        <form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="flex flex-col gap-8">
+            <h2 class="text-2xl font-bold text-[#000000]">Sign In</h2>
+
+            <div class="email"> 
+                @let emailControl = loginForm.get("email");
+                <label for="email" class="sr-only">Email:</label>
+                <input formControlName="email" id="email" type="email" placeholder="Email..." class="w-full h-[55px] border border-[#E0E0E9] focus:border-[1.98px solid #3364FD] rounded-[10px] px-3 gap-[3px] bg-[#F9F9F9] shadow-[0px_10px_20px_0px_#4461F20D] outline-none ring-0  focus:border-[#3364FD] focus:border-[2px]"
+                [ngClass]="{'border-[#E0E0E9]': !emailControl?.invalid || !emailControl?.touched,
+                'border-[#F04438]' : emailControl?.invalid && emailControl?.touched
+                }"
+                >
+                <app-error-message [nameControl]="emailControl"></app-error-message>
+            </div> 
+            <div class="password relative"> 
+                @let passwordControl = loginForm.get("password");
+                <label for="password" class="sr-only">Password:</label>
+                <input formControlName="password" id="password" [type]="togglePassword() ? 'text' : 'password'" placeholder="Password..." class="w-full h-[55px] border border-[#E0E0E9] focus:border-[1.98px solid #3364FD] rounded-[10px] ps-3 pe-8 gap-[3px] bg-[#F9F9F9] shadow-[0px_10px_20px_0px_#4461F20D] outline-none ring-0  focus:border-[#3364FD] focus:border-[2px]"
+                [ngClass]="{'border-[#E0E0E9]': !passwordControl?.invalid || !passwordControl?.touched,
+                    'border-[#F04438]' : passwordControl?.invalid && passwordControl?.touched
+                }"
+                >
+                <img (click)="togglePasswordVisibility()" class="absolute top-[20px] right-2 cursor-pointer" src="./images/show-password.svg" alt="show-password">
+                @if (passwordControl?.errors && passwordControl?.touched) {
+                    <div class="flex mt-0.5 p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                        <ul class="mt-1.5 list-disc list-inside">
+                            @if (passwordControl?.getError("required")) {
+                                <li>Required</li>
+                            }
+                            @else if (passwordControl?.getError("pattern")) {
+                                <li>Password must be at least 8 characters and include
+                                    <span class="pl-5"> 
+                                        uppercase, lowercase, number, and special characte
+                                    </span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div> 
+
+            <div class="flex justify-end">
+                <a routerLink="/forgot-password" class="text-[16px] font-normal text-main hover:!text-[#3340C3] transition-colors duration-300 pl-1">Recover Password ?</a>
+            </div>
+            
+            @if (success()) {
+                <div class="p-4 my-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                    <span class="font-medium"> {{success()}} </span>
+                </div>
+            }
+            @else if (errorMsg()) { 
+                <div class="p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <span class="font-medium"> {{errorMsg()}} </span>
+                </div>
+            }
+            
+            <p-button [loading]="isCallingAPI()" [disabled]="isCallingAPI()" type="submit" label="Sign In" styleClass="w-full bg-main hover:!bg-[#3340C3] !transition-colors !duration-300 !shadow-[0px_18px_30px_0px_#2F1C1C1A] h-[56px] !p-2 !gap-2 !rounded-[20px] text-[#FFFFFF] text-[16px] !font-normal !border-none !outline-none" />
+
+            <div class="social-icons">
+                <app-social-icons></app-social-icons>
+            </div>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,9 @@
+<input
+    [value]="value()"
+    [id]="id()"
+    [type]="type()"
+    [placeholder]="placeholder()"
+    (input)="updateValue($any($event.target).value)"
+    (blur)="onTouched()"
+    class="w-full h-[55px] border border-[#E0E0E9] focus:border-[1.98px solid #3364FD] rounded-[10px] px-3 gap-[3px] bg-[#F9F9F9] shadow-[0px_10px_20px_0px_#4461F20D] outline-none ring-0 focus:border-[#3364FD] focus:border-[2px]"
+/>

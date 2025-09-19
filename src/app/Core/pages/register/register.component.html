@@ -1,0 +1,111 @@
+<section class="flex justify-center min-h-screen">
+    <div class="form max-w-[410px] w-full h-auto mt-10 mb-20">
+        <form [formGroup]="registerForm" (ngSubmit)="submitForm()" class="flex flex-col gap-8">    
+            <h2 class="text-2xl font-bold text-[#000000]">Sign Up</h2>
+
+            <div class="username"> 
+                @let usernameControl = registerForm.get("username");
+                <label for="username" class="sr-only">User Name:</label>
+                <app-form-input formControlName="username" [id]="'username'" [type]="'text'" [placeholder]="'User Name...'" ></app-form-input>
+                <app-error-message [nameControl]="usernameControl"></app-error-message>
+            </div> 
+            <div class="firstName"> 
+                @let firstNameControl = registerForm.get("firstName");
+                <label for="firstName" class="sr-only">First Name:</label>
+                <app-form-input formControlName="firstName" [id]="'firstName'" [type]="'text'" [placeholder]="'First Name...'" ></app-form-input>
+                <app-error-message [nameControl]="firstNameControl"></app-error-message>
+            </div> 
+            <div class="lastName"> 
+                @let lastNameControl = registerForm.get("lastName");
+                <label for="lastName" class="sr-only">Last Name:</label>
+                <app-form-input formControlName="lastName" [id]="'lastName'" [type]="'text'" [placeholder]="'Last Name...'" ></app-form-input>
+                <app-error-message [nameControl]="lastNameControl"></app-error-message>
+            </div> 
+            <div class="email"> 
+                @let emailControl = registerForm.get("email");
+                <label for="email" class="sr-only">Email:</label>
+                <input formControlName="email" id="email" type="email" placeholder="Email..." class="w-full h-[55px] border border-[#E0E0E9] focus:border-[1.98px solid #3364FD] rounded-[10px] px-3 gap-[3px] bg-[#F9F9F9] shadow-[0px_10px_20px_0px_#4461F20D] outline-none ring-0  focus:border-[#3364FD] focus:border-[2px]"
+                [ngClass]="{'border-[#E0E0E9]': !emailControl?.invalid || !emailControl?.touched,
+                'border-[#F04438]' : emailControl?.invalid && emailControl?.touched
+                }"
+                >
+                <app-error-message [nameControl]="emailControl"></app-error-message>
+            </div>
+            <div class="password relative"> 
+                @let passwordControl = registerForm.get("password");
+                <label for="password" class="sr-only">Password:</label>
+                <input formControlName="password" id="password" [type]="togglePassword() ? 'text' : 'password'" placeholder="Password..." class="w-full h-[55px] border border-[#E0E0E9] focus:border-[1.98px solid #3364FD] rounded-[10px] ps-3 pe-8 gap-[3px] bg-[#F9F9F9] shadow-[0px_10px_20px_0px_#4461F20D] outline-none ring-0  focus:border-[#3364FD] focus:border-[2px]"
+                [ngClass]="{'border-[#E0E0E9]': !passwordControl?.invalid || !passwordControl?.touched,
+                'border-[#F04438]' : passwordControl?.invalid && passwordControl?.touched
+                }"
+                >                
+                <img (click)="togglePasswordVisibility()" class="absolute top-[20px] right-2 cursor-pointer" src="./images/show-password.svg" alt="show-password">
+                @if (passwordControl?.errors && passwordControl?.touched) {
+                    <div class="flex mt-0.5 p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                        <ul class="mt-1.5 list-disc list-inside">
+                            @if (passwordControl?.getError("required")) {
+                                <li>Required</li>
+                            }
+                            @else if (passwordControl?.getError("pattern")) {
+                                <li>Password must be at least 8 characters and include
+                                    <span class="pl-5"> 
+                                        uppercase, lowercase, number, and special characte
+                                    </span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div> 
+            <div class="rePassword relative"> 
+                @let rePasswordControl = registerForm.get("rePassword");
+                <label for="rePassword" class="sr-only">rePassword:</label>
+                <input formControlName="rePassword" id="rePassword" [type]="togglePassword() ? 'text' : 'password'" placeholder="rePassword..." class="w-full h-[55px] border border-[#E0E0E9] focus:border-[1.98px solid #3364FD] rounded-[10px] ps-3 pe-8 gap-[3px] bg-[#F9F9F9] shadow-[0px_10px_20px_0px_#4461F20D] outline-none ring-0  focus:border-[#3364FD] focus:border-[2px]"
+                [ngClass]="{'border-[#E0E0E9]': !rePasswordControl?.invalid || !rePasswordControl?.touched,
+                'border-[#F04438]' : rePasswordControl?.invalid && rePasswordControl?.touched
+                }"
+                >
+                <img (click)="togglePasswordVisibility()" class="absolute top-[20px] right-2 cursor-pointer" src="./images/show-password.svg" alt="show-password">
+                @if ( (rePasswordControl?.errors || registerForm.getError("misMatch")) && rePasswordControl?.touched ) {
+                    <div class="flex mt-0.5 p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                        <ul class="mt-1.5 list-disc list-inside">
+                            @if (rePasswordControl?.getError("required")) {
+                                <li>Required</li>
+                            }
+                            @else if (registerForm.getError("misMatch")) {
+                                <li>Password and rePassword should match</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+            <div class="phone"> 
+                @let phoneControl = registerForm.get("phone");
+                <label for="phone" class="sr-only">Phone:</label>
+                <app-form-input formControlName="phone" [id]="'phone'" [type]="'tel'" [placeholder]="'Phone...'" ></app-form-input>                
+                <app-error-message [nameControl]="phoneControl"></app-error-message>
+            </div>
+
+            <div class="logIn flex justify-center text-[16px] font-medium">
+                <p class="text-[#313131]">Already have an account?</p> <a routerLink="/sign-in" class="text-main hover:!text-[#3340C3] transition-colors duration-300 pl-1">Login</a>
+            </div>
+            
+            @if (success()) {
+                <div class="p-4 my-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                    <span class="font-medium"> {{success()}} </span>
+                </div>
+            }
+            @else if (errorMsg()) { 
+                <div class="p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <span class="font-medium"> {{errorMsg()}} </span>
+                </div>
+            }
+            
+            <p-button [loading]="isCallingAPI()" [disabled]="isCallingAPI()" type="submit" label="Create Account" styleClass="w-full bg-main hover:!bg-[#3340C3] !transition-colors !duration-300 !shadow-[0px_18px_30px_0px_#2F1C1C1A] h-[56px] !p-2 !gap-2 !rounded-[20px] text-[#FFFFFF] text-[16px] !font-normal !border-none !outline-none" />
+
+            <div class="social-icons">
+                <app-social-icons></app-social-icons>
+            </div>
+        </form>
+    </div>
+</section>
