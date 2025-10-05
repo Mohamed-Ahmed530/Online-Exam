@@ -1,0 +1,17 @@
+<section class="bg-[#FFFFFF] min-h-screen rounded-[20px] shadow-[0px_15px_40px_0px_#0000000D] py-8 px-4">
+    <div class="mb-5">
+        <h2 class="text-main font-medium text-2xl">Quizzes</h2>
+    </div>
+
+    <div class="w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-[24px]">
+        @for (subject of subjects().slice(0,6); track $index) {
+            <a [routerLink]="['/exams', subject._id]" class="cursor-pointer relative block hover:scale-[101%] duration-200">
+                <img [src]="subject.icon" [alt]="subject.name" class="w-full object-contain">
+                <div class="absolute bottom-4 left-4 right-4 bg-[#1935CA66] backdrop-blur-[27px] text-white p-4 rounded-[8px] flex flex-col justify-center items-center">
+                    <h3 class="font-bold text-[14px]  align-middle"> {{subject.name}} </h3>
+                    <p class="font-medium text-[12px] leading-none align-middle mt-0.5">Voluptatem aut ut dignissimos blanditiis</p>
+                </div>
+            </a>
+        }
+    </div>
+</section>

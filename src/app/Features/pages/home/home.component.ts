@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { SidebarComponent } from '../../../Shared/components/ui/sidebar/sidebar.component';
+import { SubjectsComponent } from "./components/subjects/subjects.component";
 
 @Component({
   selector: 'app-home',
-  imports: [SidebarComponent],
+  imports: [SubjectsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

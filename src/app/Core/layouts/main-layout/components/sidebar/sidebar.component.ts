@@ -5,7 +5,7 @@ import { finalize, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
@@ -17,11 +17,10 @@ export class SidebarComponent implements OnDestroy {
     this._authService.logout().pipe(
         takeUntil(this.destroy$),
         finalize(() => this._authService.clearSession())
-      ).subscribe({
-        next: (res) => {
-        },
-        error: (err) => {
-        },
+      )
+      .subscribe({
+        next: (res) => {},
+        error: (err) => {},
       });
   }
 
