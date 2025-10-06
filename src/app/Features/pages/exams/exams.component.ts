@@ -36,7 +36,9 @@ export class ExamsComponent implements OnInit, OnDestroy {
     this._activatedRoute.paramMap.pipe(takeUntil(this.destroy$)).subscribe({
       next: (params: ParamMap) => {
         const id = params.get('id');
-        this.getAllExamsOnSubject(id!);
+        if(id){
+          this.getAllExamsOnSubject(id);
+        }
       },
     });
   }

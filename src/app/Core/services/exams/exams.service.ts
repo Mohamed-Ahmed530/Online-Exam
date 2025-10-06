@@ -11,7 +11,7 @@ export class ExamsService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _BASE_URL = inject(BASE_URL);
 
-  getAllExamsOnSubject(id: string | null): Observable<ExamsResponse> {
+  getAllExamsOnSubject(id: string): Observable<ExamsResponse> {
     return this._httpClient.get<ExamsResponse>(`${this._BASE_URL}/api/v1/exams?subject=${id}`);
   }
 }
