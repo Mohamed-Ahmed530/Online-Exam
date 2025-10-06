@@ -13,7 +13,8 @@ export const routes: Routes = [
     ]},
     { path:"", canActivate:[authGuard], loadComponent:()=> import('./Core/layouts/main-layout/main-layout.component').then( (c)=> c.MainLayoutComponent ), children:[
         { path:"", redirectTo:"home", pathMatch:"full" },
-        { path:"home", loadComponent:()=> import('../app/Features/pages/home/home.component').then((c)=> c.HomeComponent), title:"Home" }
-    ] }
+        { path:"home", loadComponent:()=> import('../app/Features/pages/home/home.component').then((c)=> c.HomeComponent), title:"Home" },
+        { path:"exams/:id", loadComponent:()=> import('../app/Features/pages/exams/exams.component').then((c)=> c.ExamsComponent), title:"exams" }
+    ]}
     
 ];
